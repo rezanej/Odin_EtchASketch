@@ -16,7 +16,32 @@ function createBox(resolution)
     }
 }
 function hoverStyle(box){
-    box.style.backgroundColor=`rgb(${Math.random()*255},${Math.random()*255},${Math.random()*255})`;
+    
+    let color=window.getComputedStyle(box).getPropertyValue("background-color");
+    console.log(color)
+    if(color==="rgba(0, 0, 0, 0)")
+        box.style.backgroundColor=`rgba(${Math.random()*255},${Math.random()*255},${Math.random()*255},${Math.random()*0.5})`;
+    else{
+        color=color.split(',');
+        let r=color[0].slice(5);
+        console.log(color[0].slice(5))
+        let g=color[1].trim();
+        let b=color[2].trim();
+    
+    color=color[3].trim();
+    color=color.split("");
+    color.pop();
+    color=color.join("");
+    color=parseFloat(color)
+    
+    if(color<0.9){
+        box.style.backgroundColor=`rgba(${r},${g},${b},${color+0.1})`;
+    }
+    else{
+        box.style.backgroundColor=`rgba(${Math.random()*255},${Math.random()*255},${Math.random()*255},${Math.random()*0.5})`;
+    }
+}
+    
 
 }
 createBox(100);
